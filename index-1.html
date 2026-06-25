@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Investment Calculator Pro</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
+body{background:#f5f7fa;color:#333;}
+header{background:#0d6efd;color:white;padding:20px;text-align:center;}
+.container{max-width:800px;margin:30px auto;background:white;padding:25px;border-radius:10px;box-shadow:0 0 15px rgba(0,0,0,0.1);}
+h2{margin-bottom:20px;}
+.input-group{margin-bottom:15px;}
+label{display:block;margin-bottom:5px;font-weight:bold;}
+input{width:100%;padding:10px;border:1px solid #ccc;border-radius:5px;}
+button{width:100%;padding:12px;background:#0d6efd;color:white;border:none;border-radius:5px;cursor:pointer;font-size:16px;}
+button:hover{background:#0b5ed7;}
+.result{margin-top:20px;padding:15px;background:#e9f5ff;border-radius:5px;}
+footer{text-align:center;padding:20px;margin-top:30px;background:#222;color:white;}
+</style>
+</head>
+<body>
+<header>
+<h1>Investment Calculator Pro</h1>
+<p>Plan Your Financial Future</p>
+</header>
+
+<div class="container">
+<h2>Investment Growth Calculator</h2>
+
+<div class="input-group">
+<label>Initial Investment (KES)</label>
+<input type="number" id="principal" placeholder="10000">
+</div>
+
+<div class="input-group">
+<label>Monthly Contribution (KES)</label>
+<input type="number" id="monthly" placeholder="5000">
+</div>
+
+<div class="input-group">
+<label>Annual Interest Rate (%)</label>
+<input type="number" id="rate" placeholder="10">
+</div>
+
+<div class="input-group">
+<label>Investment Period (Years)</label>
+<input type="number" id="years" placeholder="5">
+</div>
+
+<button onclick="calculateInvestment()">Calculate Investment</button>
+
+<div class="result" id="result">Results will appear here.</div>
+</div>
+
+<footer>© 2026 Investment Calculator Pro</footer>
+
+<script>
+function calculateInvestment() {
+let principal = parseFloat(document.getElementById("principal").value) || 0;
+let monthly = parseFloat(document.getElementById("monthly").value) || 0;
+let annualRate = parseFloat(document.getElementById("rate").value) || 0;
+let years = parseFloat(document.getElementById("years").value) || 0;
+
+let monthlyRate = annualRate / 100 / 12;
+let months = years * 12;
+let futureValue = principal;
+
+for(let i=0;i<months;i++){
+futureValue = futureValue * (1 + monthlyRate) + monthly;
+}
+
+let invested = principal + (monthly * months);
+let profit = futureValue - invested;
+
+document.getElementById("result").innerHTML = `
+<h3>Investment Results</h3>
+<p><strong>Total Invested:</strong> KES ${invested.toFixed(2)}</p>
+<p><strong>Profit Earned:</strong> KES ${profit.toFixed(2)}</p>
+<p><strong>Future Value:</strong> KES ${futureValue.toFixed(2)}</p>`;
+}
+</script>
+</body>
+</html>
